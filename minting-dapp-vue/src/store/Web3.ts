@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { EthereumClient, w3mConnectors } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/html'
 import { configureChains, createConfig, getContract, prepareWriteContract, writeContract, waitForTransaction } from '@wagmi/core'
-import { polygon } from '@wagmi/core/chains'
+import { mainnet, sepolia } from '@wagmi/core/chains'
 import { publicProvider } from '@wagmi/core/providers/public'
 import { toast } from 'vue3-toastify'
 
@@ -57,7 +57,7 @@ const defaultState: State = {
 const projectId = CollectionConfig.walletConnectProjectId as string
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [polygon],
+  [mainnet, sepolia],
   [publicProvider()]
 )
 
