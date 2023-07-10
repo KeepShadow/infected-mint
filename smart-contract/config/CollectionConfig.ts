@@ -27,15 +27,13 @@ const CollectionConfig: CollectionConfigInterface = {
     price: 0.06,
     maxMintAmountPerTx: 50,
   },
-  contractAddress: null,
-  walletConnectProjectId: null,
-  marketplaceIdentifier: "",
+  contractAddress: "0x7759E5A866eF023a2CB4A479CCd1D0C10a75D393",
+  walletConnectProjectId: "54b86bafe334a726226e97077e25c877",
+  marketplaceIdentifier: "my-token-nft-test",
   marketplaceConfig: Marketplaces.openSea,
   whitelistAddresses,
-  royaltyReceiver: null,
-  royaltyNumerator: null,
-  whitelistLimit: 0,
-  treasury: null,
+  royaltyReceiver: "0xC5EBdd487fF97ce2698b69cc09EF0BEfdE476944",
+  royaltyNumerator: "1000",
 };
 
 export default CollectionConfig;
