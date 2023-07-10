@@ -17,14 +17,14 @@ export const hardhatLocal: NetworkConfigInterface = {
  * Ethereum
  */
 export const ethereumTestnet: NetworkConfigInterface = {
-  chainId: 4,
+  chainId: 11155111,
   symbol: "ETH (test)",
   blockExplorer: {
-    name: "Etherscan (Rinkeby)",
+    name: "Etherscan (Sepolia)",
     generateContractUrl: (contractAddress: string) =>
-      `https://rinkeby.etherscan.io/address/${contractAddress}`,
+      `https://sepolia.etherscan.io/address/${contractAddress}`,
     generateTransactionUrl: (transactionAddress: string) =>
-      `https://rinkeby.etherscan.io/tx/${transactionAddress}`,
+      `https://sepolia.etherscan.io/tx/${transactionAddress}`,
   },
 };
 
