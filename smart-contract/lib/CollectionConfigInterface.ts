@@ -30,4 +30,5 @@ export default interface CollectionConfigInterface {
   whitelistAddresses: string[];
   royaltyReceiver: string | null;
   royaltyNumerator: string | null;
+  treasury: string | null;
 }

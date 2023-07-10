@@ -34,6 +34,7 @@ const CollectionConfig: CollectionConfigInterface = {
   whitelistAddresses,
   royaltyReceiver: "0xC5EBdd487fF97ce2698b69cc09EF0BEfdE476944",
   royaltyNumerator: "1000",
+  treasury: null,
 };
 
 export default CollectionConfig;
