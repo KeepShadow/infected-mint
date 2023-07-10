@@ -6,6 +6,12 @@ interface SaleConfig {
   maxMintAmountPerTx: number;
 }
 
+interface WhitelistSaleConfig {
+  price: number;
+  maxMintAmountPerTx: number;
+  whitelistSupply: number
+}
+
 export default interface CollectionConfigInterface {
   testnet: NetworkConfigInterface;
   mainnet: NetworkConfigInterface;
@@ -14,7 +20,7 @@ export default interface CollectionConfigInterface {
   tokenSymbol: string;
   hiddenMetadataUri: string;
   maxSupply: number;
-  whitelistSale: SaleConfig;
+  whitelistSale: WhitelistSaleConfig;
   preSale: SaleConfig;
   publicSale: SaleConfig;
   contractAddress: string | null;

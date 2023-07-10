@@ -23,6 +23,23 @@ async function main() {
   // Attach to deployed contract
   const contract = await NftContractProvider.getContract();
 
+  // Update Whitelist Supply
+  if (
+    !(await (
+      await contract.whitelistSupply()
+    ).eq(CollectionConfig.whitelistSale.whitelistSupply))
+  ) {
+    console.log(
+      `Updating whitelist supply to ${CollectionConfig.whitelistSale.whitelistSupply}...`
+    );
+
+    await (
+      await contract.setwhitelistSupply(
+        CollectionConfig.whitelistSale.whitelistSupply
+      )
+    ).wait();
+  }
+
   // Update sale price (if needed)
   const whitelistPrice = utils.parseEther(
     CollectionConfig.whitelistSale.price.toString()

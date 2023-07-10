@@ -24,8 +24,10 @@ contract YourNftToken is ERC721AQueryable, Ownable, ReentrancyGuard, ERC2981, De
   uint256 public cost;
   uint256 public maxSupply;
   uint256 public maxMintAmountPerTx;
-  uint256 public whitelistMintAmount;
-  uint256 public whitelistLimit;
+  
+  // Whitelist Supply
+  uint256 public whitelistMinted;
+  uint256 public whitelistSupply;
 
   bool public paused = true;
   bool public whitelistMintEnabled = false;
@@ -67,15 +69,15 @@ contract YourNftToken is ERC721AQueryable, Ownable, ReentrancyGuard, ERC2981, De
     require(!whitelistClaimed[_msgSender()], 'Address already claimed!');
     bytes32 leaf = keccak256(abi.encodePacked(_msgSender()));
     require(MerkleProof.verify(_merkleProof, merkleRoot, leaf), 'Invalid proof!');
-    require(whitelistMintAmount <= whitelistLimit, 'Minting Phase Supply reached.');
+    require(whitelistMinted <= whitelistSupply, 'Minting Phase Supply reached.');
 
-    whitelistMintAmount++;
+    whitelistMinted += _mintAmount;
     whitelistClaimed[_msgSender()] = true;
     _safeMint(_msgSender(), _mintAmount);
   }
 
-  function setWhitelistLimit(uint _whitelistLimit) external onlyOwner {
-    whitelistLimit = _whitelistLimit;
+  function setwhitelistSupply(uint _whitelistSupply) external onlyOwner {
+    whitelistSupply = _whitelistSupply;
   }
 
   function mint(uint256 _mintAmount) public payable mintCompliance(_mintAmount) mintPriceCompliance(_mintAmount) {
@@ -139,6 +141,7 @@ contract YourNftToken is ERC721AQueryable, Ownable, ReentrancyGuard, ERC2981, De
 
   function setWhitelistMintEnabled(bool _state) public onlyOwner {
     whitelistMintEnabled = _state;
+    if (_state) whitelistMinted = 0;
   }
   
   function setTreasuryWallet(address _wallet) public onlyOwner {
