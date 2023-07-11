@@ -57,7 +57,6 @@ contract YourNftToken is ERC721AQueryable, Ownable, ReentrancyGuard, ERC2981, De
   modifier mintCompliance(uint256 _mintAmount) {
     require(_mintAmount > 0 && _mintAmount <= maxMintAmountPerTx, 'Invalid mint amount!');
     require(totalSupply() + _mintAmount <= maxSupply, 'Max supply exceeded!');
-    require(whitelistMinted + _mintAmount <= whitelistSupply, 'Minting Phase Supply reached!');
     _;
   }
 
@@ -72,6 +71,7 @@ contract YourNftToken is ERC721AQueryable, Ownable, ReentrancyGuard, ERC2981, De
     require(!whitelistClaimed[_msgSender()], 'Address already claimed!');
     bytes32 leaf = keccak256(abi.encodePacked(_msgSender()));
     require(MerkleProof.verify(_merkleProof, merkleRoot, leaf), 'Invalid proof!');
+    require(whitelistMinted + _mintAmount <= whitelistSupply, 'Minting Phase Supply reached!');
 
     whitelistMinted += _mintAmount;
     whitelistClaimed[_msgSender()] = true;
