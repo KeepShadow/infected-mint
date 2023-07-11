@@ -9,15 +9,15 @@ const CollectionConfig: CollectionConfigInterface = {
   // The contract name can be updated using the following command:
   // yarn rename-contract NEW_CONTRACT_NAME
   // Please DO NOT change it manually!
-  contractName: "YourNftToken",
-  tokenName: "YourNftToken",
+  contractName: "HanzoAvatars",
+  tokenName: "HanzoAvatars",
   tokenSymbol: "HANZO",
   hiddenMetadataUri: "ipfs://bafybeigogldcdwnyjv2pgyqikatpb3n4gl7z4twwuw6cssn5wqmu4z3gei/hidden.json",
   maxSupply: 5000,
   whitelistSale: {
-    price: 0.04,
+    price: 0.05,
     maxMintAmountPerTx: 1,
-    whitelistSupply: 500
+    whitelistSupply: 1500
   },
   preSale: {
     price: 100,
@@ -27,14 +27,14 @@ const CollectionConfig: CollectionConfigInterface = {
     price: 0.06,
     maxMintAmountPerTx: 50,
   },
-  contractAddress: "0x7759E5A866eF023a2CB4A479CCd1D0C10a75D393",
+  contractAddress: "0x21ac284D439183F3Aa5b9C471998E08704dd4Fac",
   walletConnectProjectId: "54b86bafe334a726226e97077e25c877",
-  marketplaceIdentifier: "my-token-nft-test",
+  marketplaceIdentifier: "hanzo-avatars",
   marketplaceConfig: Marketplaces.openSea,
   whitelistAddresses,
   royaltyReceiver: "0xC5EBdd487fF97ce2698b69cc09EF0BEfdE476944",
   royaltyNumerator: "1000",
-  treasury: null,
+  treasury: "0xC5EBdd487fF97ce2698b69cc09EF0BEfdE476944",
 };
 
 export default CollectionConfig;
