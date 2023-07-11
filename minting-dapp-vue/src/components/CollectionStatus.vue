@@ -5,12 +5,12 @@
       <span className="address">{{Web3.userAddress}}</span>
     </div>
     <div className="supply">
-      <span className="label">Supply</span>
+      <!-- <span className="label">Supply</span> -->
       {{Web3.totalSupply}}/{{Web3.maxSupply}}
     </div>
 
     <div className="current-sale">
-      <span className="label">Sale status</span>
+      <!-- <span className="label">Sale status</span> -->
       {{isSaleOpen ? (Web3.isWhitelistMintEnabled ? 'Whitelist only' : 'Open') : 'Closed'}}
     </div>
   </div>

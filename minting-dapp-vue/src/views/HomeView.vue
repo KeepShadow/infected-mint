@@ -1,10 +1,31 @@
 <template>
-  <div id="minting-dapp">
-
-    <img id="logo" src="../assets/logo.png" alt="Logo" />
+  <div id="minting-dapp" class="preview">
+    <div class="sidebar">
+      <ul>
+        <li>
+          <img src="../assets/nft_1.jpg" alt="Hanzo Nft Collection">
+        </li>
+        <li>
+          <img src="../assets/nft_2.jpg" alt="Hanzo Nft Collection">
+        </li>
+        <li>
+          <img src="../assets/nft_3.jpg" alt="Hanzo Nft Collection">
+        </li>
+        <li>
+          <img src="../assets/nft_4.jpg" alt="Hanzo Nft Collection">
+        </li>
+        <li>
+          <img src="../assets/nft_5.jpg" alt="Hanzo Nft Collection">
+        </li>
+        <li>
+          <img src="../assets/nft_6.jpg" alt="Hanzo Nft Collection">
+        </li>
+      </ul>
+    </div>
+    <img id="logo" src="../assets/plain_typo.png" alt="Logo Hanzo" />
 
     <div v-if="Web3.isNotMainnet" class="alert alert-warning" role="alert">
-      You are not connected to the main network. <span class="small">Current network: <strong>{{Web3.network?.name}}</strong></span>
+      You are not connected to the Ethereum network. <span class="small">Current network: <strong>{{Web3.network?.name}}</strong></span>
     </div>
 
     <div v-if="Web3.errorMessage" class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -13,11 +34,13 @@
     </div>
 
     <template v-if="Web3.isWalletConnected && Web3.isContractReady">
-      <collection-status />
-      <mint-widget v-if="!Web3.isSoldOut"/>
-      <div v-else>
-        <h2>Tokens have been <strong>sold out</strong>! <span class="emoji">🥳</span></h2>
-        You can buy from our beloved holders on <a :href="Web3.generateMarketplaceUrl" target="_blank">{{Web3.marketPlaceName}}</a>.
+      <div class="containerMintStatus">
+        <collection-status />
+        <mint-widget v-if="!Web3.isSoldOut"/>
+        <div v-else>
+          <h2>Hanzo Avatars have been <strong>sold out</strong>! <span class="emoji">🥳</span></h2>
+          You can buy from our beloved holders on <a :href="Web3.generateMarketplaceUrl" target="_blank">{{Web3.marketPlaceName}}</a>.
+        </div>
       </div>
     </template>
 
@@ -31,33 +54,24 @@
     </div>
 
     <div v-else-if="!Web3.isWalletConnected" class="no-wallet">
-      <button class="primary" @click="Web3.connectWallet">Connect Wallet</button>
-
-      <div class="use-block-explorer">
-        Hey, looking for a <strong>super-safe experience</strong>? <span class="emoji">😃</span><br />
-        You can interact with the smart-contract <strong>directly</strong> through <a :href="Web3.generateContractUrl" target="_blank">{{Web3.networkConfig.blockExplorer.name}}</a>, without even connecting your wallet to this DAPP! <span class="emoji">🚀</span><br />
-        <br />
-        Keep safe! <span class="emoji">❤️</span>
-      </div>
-
-      <div v-if="!Web3.isWalletConnected || Web3.isWhitelistMintEnabled" class="merkle-proof-manual-address">
-        <h2>Whitelist Proof</h2>
-        <p>
-          Anyone can generate the proof using any public address in the list, but <strong>only the owner of that address</strong> will be able to make a successful transaction by using it.
-        </p>
-
-        <div v-if="Web3.merkleProofManualAddressStatus === true" class="feedback-message">
-          <strong>Congratulations!</strong> <span class="emoji">🎉</span><br />
-          Your Merkle Proof <strong>has been copied to the clipboard</strong>. You can paste it into <a :href="Web3.generateContractUrl" target="_blank">{{Web3.networkConfig.blockExplorer.name}}</a> to claim your tokens.
-        </div>
-        <div v-else-if="Web3.merkleProofManualAddressStatus === false" class="feedback-message">
-          The given address is not in the whitelist, please double-check.
-        </div>
-
-        <label htmlFor="merkle-proof-manual-address">Public address:</label>
-        <input id="merkle-proof-manual-address" type="text" placeholder="0x000..." v-model="merkleProofManualAddress" />
-        <button @click="merkleProofManualAddress && Web3.copyMerkleProofToClipboard(merkleProofManualAddress)">Generate and copy to clipboard</button>
-      </div>
+      <button class="connectButton" @click="Web3.connectWallet">Connect Wallet</button>
+    </div>
+    <div v-else-if="Web3.isWalletConnected" class="walletTop">
+      <button class="connectButton" @click="Web3.connectWallet"></button>
+    </div>
+    <div class="socialLinks">
+      <ul>
+        <li>
+          <a href="https://twitter.com/LegendOfHanzo" target="_blank">
+            <img src="../assets/icon_twitter.png" alt="hanzo twitter">
+          </a>
+        </li>
+        <li>
+          <a href="https://t.me/hanzommorpg" target="_blank">
+            <img src="../assets/icon_tg.png" alt="hanzo telegram">
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
