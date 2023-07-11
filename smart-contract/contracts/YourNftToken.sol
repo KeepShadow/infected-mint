@@ -43,10 +43,12 @@ contract YourNftToken is ERC721AQueryable, Ownable, ReentrancyGuard, ERC2981, De
     uint256 _maxMintAmountPerTx,
     string memory _hiddenMetadataUri,
     address _royaltyReceiver,
-    uint96 _royaltyNumerator
+    uint96 _royaltyNumerator,
+    address _treasury
   ) ERC721A(_tokenName, _tokenSymbol) {
     setCost(_cost);
     maxSupply = _maxSupply;
+    treasury = _treasury;
     setMaxMintAmountPerTx(_maxMintAmountPerTx);
     setHiddenMetadataUri(_hiddenMetadataUri);
     _setDefaultRoyalty(_royaltyReceiver, _royaltyNumerator);
@@ -69,7 +71,7 @@ contract YourNftToken is ERC721AQueryable, Ownable, ReentrancyGuard, ERC2981, De
     require(!whitelistClaimed[_msgSender()], 'Address already claimed!');
     bytes32 leaf = keccak256(abi.encodePacked(_msgSender()));
     require(MerkleProof.verify(_merkleProof, merkleRoot, leaf), 'Invalid proof!');
-    require(whitelistMinted <= whitelistSupply, 'Minting Phase Supply reached.');
+    require(whitelistMinted + _mintAmount <= whitelistSupply, 'Minting Phase Supply reached.');
 
     whitelistMinted += _mintAmount;
     whitelistClaimed[_msgSender()] = true;
