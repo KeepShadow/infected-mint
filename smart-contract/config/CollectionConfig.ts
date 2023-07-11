@@ -12,7 +12,7 @@ const CollectionConfig: CollectionConfigInterface = {
   contractName: "YourNftToken",
   tokenName: "YourNftToken",
   tokenSymbol: "HANZO",
-  hiddenMetadataUri: "ipfs://__CID__/hidden.json",
+  hiddenMetadataUri: "ipfs://bafybeigogldcdwnyjv2pgyqikatpb3n4gl7z4twwuw6cssn5wqmu4z3gei/hidden.json",
   maxSupply: 5000,
   whitelistSale: {
     price: 0.04,
