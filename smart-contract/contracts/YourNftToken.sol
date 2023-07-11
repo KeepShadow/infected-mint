@@ -57,7 +57,7 @@ contract YourNftToken is ERC721AQueryable, Ownable, ReentrancyGuard, ERC2981, De
   modifier mintCompliance(uint256 _mintAmount) {
     require(_mintAmount > 0 && _mintAmount <= maxMintAmountPerTx, 'Invalid mint amount!');
     require(totalSupply() + _mintAmount <= maxSupply, 'Max supply exceeded!');
-    require(whitelistMinted + _mintAmount <= whitelistSupply, 'Minting Phase Supply reached.');
+    require(whitelistMinted + _mintAmount <= whitelistSupply, 'Minting Phase Supply reached!');
     _;
   }
 
