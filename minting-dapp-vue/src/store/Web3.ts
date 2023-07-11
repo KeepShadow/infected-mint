@@ -11,7 +11,7 @@ import NetworkConfigInterface from '../../../smart-contract/lib/NetworkConfigInt
 import CollectionConfig from '../../../smart-contract/config/CollectionConfig'
 import Whitelist from '../scripts/lib/Whitelist'
 
-import { yourNftTokenABI } from '../generated'
+import { hanzoAvatarsABI } from '../generated'
 
 interface Network {
   name: string,
@@ -73,7 +73,7 @@ const web3modal = new Web3Modal({ projectId }, ethereumClient)
 
 const contractConf = {
   address: CollectionConfig.contractAddress as `0x${string}`,
-  abi: yourNftTokenABI
+  abi: hanzoAvatarsABI
 }
 
 export const useWeb3 = defineStore('Web3', {
