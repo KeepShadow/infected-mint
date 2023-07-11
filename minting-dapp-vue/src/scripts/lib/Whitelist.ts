@@ -3,7 +3,7 @@ import { MerkleTree } from 'merkletreejs'
 import keccak256 from 'keccak256'
 
 class Whitelist {
-  private merkleTree!: MerkleTree;
+  private merkleTree!: MerkleTree
 
   private getMerkleTree (): MerkleTree {
     if (this.merkleTree === undefined) {
