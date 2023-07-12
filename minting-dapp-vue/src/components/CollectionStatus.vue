@@ -13,6 +13,7 @@
       <!-- <span className="label">Sale status</span> -->
       {{isSaleOpen ? (Web3.isWhitelistMintEnabled ? 'Whitelist only' : 'Open') : 'Closed'}}
     </div>
+    <div class="mintableAmount">Mint limit per wallet: 1</div>
   </div>
 </template>
 

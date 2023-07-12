@@ -228,6 +228,7 @@ main #logo{
   text-shadow: 0 2px rgba(0, 0, 0, .3);
   padding: 0;
   margin-bottom: .5em;
+  margin-top: .5em;
   text-align: center;
 }
 #minting-dapp .collection-status .limit{
@@ -235,6 +236,13 @@ main #logo{
   color: #E78EFF;
   padding: 0;
   margin-bottom: .5em;
+}
+.mintableAmount{
+  font-family: "content";
+  padding: 0!important;
+  font-size: 1.5em;
+  color: #E78EFF;
+  grid-column: span 2 / span 2;
 }
 /* COLLECTION STATUS END */
 /* MINTING WIDGET */

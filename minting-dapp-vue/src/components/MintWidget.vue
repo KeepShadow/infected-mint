@@ -4,7 +4,6 @@
      <!--  <div className="preview">
         <img src="../assets/logo.png" alt="Collection preview" />
       </div> -->
-
       <div className="price">
         <strong>Mint price:</strong> {{formattedPrice}} {{Web3.networkConfig.symbol}}
       </div>
