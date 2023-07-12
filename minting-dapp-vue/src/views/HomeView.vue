@@ -20,6 +20,12 @@
         <li>
           <img src="../assets/nft_6.jpg" alt="Hanzo Nft Collection">
         </li>
+        <li>
+          <img src="../assets/nft_1.jpg" alt="Hanzo Nft Collection">
+        </li>
+        <li>
+          <img src="../assets/nft_2.jpg" alt="Hanzo Nft Collection">
+        </li>
       </ul>
     </div>
     <img id="logo" src="../assets/plain_typo.png" alt="Logo Hanzo" />
