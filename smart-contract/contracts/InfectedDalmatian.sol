@@ -10,7 +10,7 @@ import '@openzeppelin/contracts/utils/Strings.sol';
 import {ERC2981} from "@openzeppelin/contracts/token/common/ERC2981.sol";
 import "operator-filter-registry/src/DefaultOperatorFilterer.sol";
 
-contract HanzoAvatars is ERC721AQueryable, Ownable, ReentrancyGuard, ERC2981, DefaultOperatorFilterer {
+contract InfectedDalmatian is ERC721AQueryable, Ownable, ReentrancyGuard, ERC2981, DefaultOperatorFilterer {
 
   using Strings for uint256;
 
@@ -69,7 +69,7 @@ contract HanzoAvatars is ERC721AQueryable, Ownable, ReentrancyGuard, ERC2981, De
     // Verify whitelist requirements
     require(whitelistMintEnabled, 'The whitelist sale is not enabled!');
     require(!whitelistClaimed[_msgSender()], 'Address already claimed!');
-    bytes32 leaf = keccak256(abi.encodePacked(_msgSender()));
+    bytes32 leaf = keccak256(bytes.concat(keccak256(abi.encode(msg.sender, _mintAmount))));
     require(MerkleProof.verify(_merkleProof, merkleRoot, leaf), 'Invalid proof!');
     require(whitelistMinted + _mintAmount <= whitelistSupply, 'Minting Phase Supply reached!');
 

@@ -299,6 +299,16 @@ main #logo{
   text-shadow: 0px 0px rgba(0, 0, 0, .3);
   color: black;
 }
+#minting-dapp .mint-widget .increase:disabled,
+#minting-dapp .mint-widget .increase[disabled]{
+  background-color: gray;
+  color: white;
+  opacity: .8;
+}
+#minting-dapp .mint-widget .increase:disabled:hover,
+#minting-dapp .mint-widget .increase[disabled]:hover{
+  filter: drop-shadow(0 0px 0px rgba(0, 0, 0, .5));
+}
 #minting-dapp .mint-widget .mintButton:disabled,
 #minting-dapp .mint-widget .mintButton[disabled]{
   background-color: gray;

@@ -3,15 +3,16 @@ import { defineStore } from 'pinia'
 import { EthereumClient, w3mConnectors } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/html'
 import { configureChains, createConfig, getContract, prepareWriteContract, writeContract, waitForTransaction } from '@wagmi/core'
-import { mainnet } from '@wagmi/core/chains'
+import { polygonMumbai } from '@wagmi/core/chains'
 import { publicProvider } from '@wagmi/core/providers/public'
 import { toast } from 'vue3-toastify'
 
 import NetworkConfigInterface from '../../../smart-contract/lib/NetworkConfigInterface'
 import CollectionConfig from '../../../smart-contract/config/CollectionConfig'
-import Whitelist from '../scripts/lib/Whitelist'
+/* import Whitelist from '../scripts/lib/Whitelist' */
+import Whitelist from '../scripts/lib/Whitelist2'
 
-import { hanzoAvatarsABI } from '../generated'
+import { infectedDalmatianABI } from '../generated'
 
 interface Network {
   name: string,
@@ -32,6 +33,8 @@ interface State {
   loading: boolean;
   isWhitelistMintEnabled: boolean;
   isUserInWhitelist: boolean;
+  amountAllowed: number;
+  alreadyClaimed: boolean;
   merkleProofManualAddressStatus: boolean|null;
   errorMessage: string|JSX.Element|null;
 }
@@ -41,7 +44,7 @@ const defaultState: State = {
   initDone: false,
   userAddress: null,
   network: null,
-  networkConfig: CollectionConfig.mainnet,
+  networkConfig: CollectionConfig.testnet, /*    //HERE */
   totalSupply: 0,
   maxSupply: 0,
   maxMintAmountPerTx: 0,
@@ -50,6 +53,8 @@ const defaultState: State = {
   loading: false,
   isWhitelistMintEnabled: false,
   isUserInWhitelist: false,
+  amountAllowed: 0,
+  alreadyClaimed: false,
   merkleProofManualAddressStatus: null,
   errorMessage: null
 }
@@ -57,7 +62,7 @@ const defaultState: State = {
 const projectId = CollectionConfig.walletConnectProjectId as string
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [mainnet],
+  [polygonMumbai],
   [publicProvider()]
 )
 
@@ -73,14 +78,15 @@ const web3modal = new Web3Modal({ projectId }, ethereumClient)
 
 const contractConf = {
   address: CollectionConfig.contractAddress as `0x${string}`,
-  abi: hanzoAvatarsABI
+  abi: infectedDalmatianABI
 }
 
 export const useWeb3 = defineStore('Web3', {
   state: () => defaultState,
   actions: {
     async init () {
-      console.log('Web3 init start')
+      console.log('Web3 init start2')
+      console.log(Whitelist.getRoot())
       this.registerWalletEvents()
 
       this.contract = getContract({
@@ -89,13 +95,15 @@ export const useWeb3 = defineStore('Web3', {
       })
 
       this.$patch({
-        maxSupply: Number(await this.contract.read.maxSupply([])),
+        maxSupply: Number(await this.contract.read.maxSupply()),
         totalSupply: Number(await this.contract.read.totalSupply([])),
         maxMintAmountPerTx: Number(await this.contract.read.maxMintAmountPerTx([])),
         tokenPrice: await this.contract.read.cost([]),
         isPaused: await this.contract.read.paused([]),
         isWhitelistMintEnabled: await this.contract.read.whitelistMintEnabled([]),
-        isUserInWhitelist: Whitelist.contains(this.userAddress ?? '')
+        isUserInWhitelist: Whitelist.contains(this.userAddress ?? ''),
+        amountAllowed: Whitelist.getAmountAllowed(this.userAddress ?? ''),
+        alreadyClaimed: await this.contract.read.whitelistClaimed([this.userAddress ?? ''])
       })
 
       this.initDone = true
@@ -105,6 +113,7 @@ export const useWeb3 = defineStore('Web3', {
         // console.log('ACCOUNT EVENT', isConnected, address)
         if (isConnected) {
           this.userAddress = address
+          /* console.log(Whitelist.getProofForAddress(this.userAddress!) as `0x${string}`[]) */
         } else {
           this.userAddress = null
         }
@@ -239,7 +248,7 @@ export const useWeb3 = defineStore('Web3', {
       return this.maxSupply !== 0 && this.totalSupply >= this.maxSupply
     },
     isNotMainnet (): boolean {
-      return this.network !== null && this.network.chainId !== CollectionConfig.mainnet.chainId
+      return this.network !== null && this.network.chainId !== CollectionConfig.testnet.chainId
     },
     generateContractUrl (): string {
       return this.networkConfig.blockExplorer.generateContractUrl(CollectionConfig.contractAddress!)
